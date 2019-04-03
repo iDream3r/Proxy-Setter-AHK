@@ -46,7 +46,6 @@ Start:
 
 proxch(Status,Prox,Port)
 {
-    runner := 1
     Run, C:\WINDOWS\system32\cmd.exe,,, PID
     WinWait, ahk_pid %PID%
     if (Status=0)
@@ -70,7 +69,7 @@ proxch(Status,Prox,Port)
 Stop:
     ESC::
 	Status := 1
-    proxch(Status,Prox,Port)
+    	proxch(Status,Prox,Port)
 	return
 
 Exit:
