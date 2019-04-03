@@ -68,9 +68,9 @@ proxch(Status,Prox,Port)
 
 Stop:
     ESC::
-	Status := 1
-    	proxch(Status,Prox,Port)
-	return
+    Status := 1
+    proxch(Status,Prox,Port)
+    return
 
 Exit:
     ^q::
