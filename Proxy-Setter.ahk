@@ -46,31 +46,23 @@ Start:
 
 proxch(Status,Prox,Port)
 {
-    Run, C:\WINDOWS\system32\cmd.exe,,, PID
-    WinWait, ahk_pid %PID%
     if (Status=0)
     {
-        SendInput, reg add "HKCU\Software\Microsoft\Windows\CurrentVersion\Internet Settings" ^ /v ProxyEnable /t REG_DWORD /d 1 /f
-        Send, {Enter}
-        Sleep, 200
-        SendInput, reg add "HKCU\Software\Microsoft\Windows\CurrentVersion\Internet Settings" ^ /v ProxyServer /t REG_SZ /d %Prox%:%Port% /f
-        Send, {Enter}
+        regwrite,REG_DWORD,HKCU,Software\Microsoft\Windows\CurrentVersion\Internet Settings,Proxyenable,1
+        regwrite,REG_SZ,HKCU,Software\Microsoft\Windows\CurrentVersion\Internet Settings,ProxyServer,%Prox%:%Port%
     }
     if (Status=1)
     {
-        SendInput, reg add "HKCU\Software\Microsoft\Windows\CurrentVersion\Internet Settings" ^ /v ProxyEnable /t REG_DWORD /d 0 /f
-        Send, {Enter}
+        regwrite,REG_DWORD,HKCU,Software\Microsoft\Windows\CurrentVersion\Internet Settings,Proxyenable,0
     }
-    Sleep, 200
-    Process, Close, %PID%
     return
 }
 
 Stop:
     ESC::
-    Status := 1
+	Status := 1
     proxch(Status,Prox,Port)
-    return
+	return
 
 Exit:
     ^q::
